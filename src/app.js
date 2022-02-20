@@ -55,6 +55,8 @@ function handleSubmit(event) {
   event.preventDefault();
   let cityInputElement = document.querySelector("#input-city");
   search(cityInputElement.value);
+  FahrenheitLink.classList.remove("active");
+  CelsiusLink.classList.add("active");
 }
 search("Sydney");
 

@@ -5,7 +5,7 @@
 .showWeather {
   margin: 0px auto;
   border-radius: 10px;
-  border: 1px solid rgb(151, 150, 150);
+  border: 1px solid rgba(151, 150, 150, 0.623);
   padding: 10px;
 }
 li {
@@ -40,4 +40,21 @@ a {
 }
 .active:hover {
   color: black;
+}
+#forecast {
+  text-align: center;
+  margin-top: 35px;
+  border-top: 1px solid rgba(175, 175, 175, 0.229);
+  padding-top: 20px;
+}
+.forecast-col {
+  margin-top: 10px;
+}
+.forecast-weather {
+  margin: 20px auto 5px;
+}
+img.forecast-icon {
+  margin: 0px auto;
+  display: block;
+  max-width: 50px;
 }

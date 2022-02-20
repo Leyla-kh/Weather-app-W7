@@ -4,7 +4,15 @@ function formatDate(timestamp) {
   if (hour < 10) hour = `0${hour}`;
   let minute = date.getMinutes();
   if (minute < 10) minute = `0${minute}`;
-  let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
   let day = days[date.getDay()];
   return `${day}  ${hour} : ${minute}`;
 }
@@ -30,6 +38,51 @@ function displayCityInfo(response) {
     "src",
     `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
+  forecastLink(response.data.coord);
+}
+function forecastLink(coord) {
+  apiKey = "d61e33eb8b7d77b8e9f463b4ce970f4d";
+  apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coord.lat}&lon=${coord.lon}&units=metric&appid=${apiKey}`;
+  console.log(apiUrl);
+  axios.get(apiUrl).then(displayForecast);
+}
+function forecastFormatDay(timestamp) {
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[new Date(timestamp * 1000).getDay()];
+}
+function displayForecast(response) {
+  let forecast = response.data.daily;
+  console.log(forecast);
+  let forecastElement = document.querySelector("#forecast");
+  let forecastFormat = `<div class="row">`;
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      forecastFormat =
+        forecastFormat +
+        `
+              <div class="col-2 forecast-col">
+                <div class="forecast-day">${forecastFormatDay(
+                  forecastDay.dt
+                )}</div>
+                <img
+                  src="https://openweathermap.org/img/wn/${
+                    forecastDay.weather[0].icon
+                  }@2x.png"
+                  class="forecast-icon"
+                />
+                <div class="forecast-weather">
+                  <span>${Math.round(
+                    forecastDay.temp.max
+                  )}° </span><span>${Math.round(forecastDay.temp.min)}°</span>
+                </div>
+              
+            </div>`;
+    }
+  });
+
+  forecastFormat = forecastFormat + `<div>`;
+  console.log(forecastFormat);
+  forecastElement.innerHTML = forecastFormat;
 }
 function displayFahrenheitTemp(event) {
   event.preventDefault();

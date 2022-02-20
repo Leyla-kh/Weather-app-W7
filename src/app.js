@@ -48,7 +48,7 @@ function displayCelsiusTemp(event) {
 }
 function search(cityName) {
   apiKey = "d61e33eb8b7d77b8e9f463b4ce970f4d";
-  apiUrl = `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`;
+  apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`;
   axios.get(apiUrl).then(displayCityInfo);
 }
 function handleSubmit(event) {
